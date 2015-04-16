@@ -33,12 +33,11 @@ class Vigenere
 			@key = key.downcase
 			@context = context.downcase
 		end
-		array = Array.new
 		@context.scan(/./).each_with_index do |char, i|
-			shift    = ((char.ord - 97) + (@key[i % @key.length].ord - 97)) % @alphabetCount
-			array[i] = (97 + shift).chr
+			shift    = ((char.ord - 97) + (@key[i % @key.length].ord - 97)) % @alphabet_count
+			@encode += (97 + shift).chr
 		end
-		@encode = array.to_s
+		@encode
 	end
 
 # @param [Integer] size
@@ -47,7 +46,19 @@ class Vigenere
 	# returns the alphabet count
 	public
 	def size_alphabet(size = 26)
-		@encode = nil unless (@alphabetCount == 26)
-		@alphabetCount = size.abs
+		@encode = nil unless (@alphabet_count == 26)
+		@alphabet_count = size.abs
+	end
+
+	public
+# @return [Hash] Amount of char appereance
+	def analyze_char_amount
+		char_amount = Hash.new
+		if @encode != nil
+			@encode.each_char do |char|
+				char_amount.key?(char) ? char_amount[char] += 1 : char_amount[char] = 1
+			end
+		end
+		char_amount
 	end
 end
