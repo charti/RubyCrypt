@@ -1,6 +1,6 @@
-load 'classes.rb'
+load 'vigenere.rb'
 
-TEXT = Vigenere.new('key', 'angewandteinformatik')
-AMOUNT = TEXT.analyze_char_amount
+vigener_encrypter = Vigenere.new('key', 'angewandteinformatik')
+AMOUNT = vigener_encrypter.analyze_char_amount
 
 puts "#{AMOUNT}"
